@@ -7,6 +7,7 @@ import HeroCarousel from "@/components/HeroCarousel";
 import Searchbar from "@/components/Searchbar";
 import ProductCard from "@/components/ProductCard";
 import { ProductType } from '@/types';
+import { getAllProducts } from '@/lib/actions';
 
 const ClientHome = ({ initialProducts }: {initialProducts: ProductType[] | undefined}) => {
   
@@ -17,6 +18,12 @@ const ClientHome = ({ initialProducts }: {initialProducts: ProductType[] | undef
   useEffect(() => {
     if(initialProducts !== undefined) {
       setProducts(initialProducts);
+    } else {
+      getAllProducts().then((data: ProductType[] | undefined) => {
+        if (data !== undefined) {
+          setProducts(data);
+        }
+      });
     }
   }, [initialProducts, setProducts, products]);
 
