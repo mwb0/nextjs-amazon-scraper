@@ -63,6 +63,7 @@ The project will be available at `http://localhost:3000`
 1. **Enter an Amazon product URL** in the search bar.
 2. **Provide an email, phone number, price drop mode and value** in the tracking modal.
 3. **Receive notifications** when the product price drops.
+4. **Cron Job** - Set up a cron job to automatically monitor product prices by sending requests to `/api/cron/`
 
 ## 🛠️ Running in Production
 To build and run in production mode, use:
