@@ -15,7 +15,7 @@ const ClientHome = ({ initialProducts }: {initialProducts: ProductType[] | undef
   const products = useProductStore((state) => state.products);
 
   useEffect(() => {
-    console.log("component did mount")
+    console.log("component did mount", products)
     getAllProducts().then((data: ProductType[] | undefined) => {
       if (data !== undefined) {
         setProducts(data);
@@ -45,13 +45,9 @@ const ClientHome = ({ initialProducts }: {initialProducts: ProductType[] | undef
         <h2 className="section-text">ALL Products</h2>
         <div className="flex flex-wrap gap-x-8 gap-y-16">
           {
-            !products?.length && initialProducts?.map((product) => (
+            products?.length === 0 ? initialProducts?.map((product) => (
               <ProductCard key={product._id} product={product} />
-            ))
-          }
-
-          {
-            products?.length && products?.map((product) => (
+            )) : products?.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))
           }

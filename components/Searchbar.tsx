@@ -4,6 +4,8 @@
 import { scrapeAndStoreProduct } from '@/lib/actions';
 import { FormEvent, useState } from 'react'
 import useProductStore from '@/store/productStore';
+import { getAllProducts } from '@/lib/actions';
+import { ProductType } from '@/types';
 
 
 const isValidAmazonProductURL = (url: string) => {
@@ -44,10 +46,16 @@ const Searchbar = () => {
     try {
       setIsLoading(true);
       // Scrape the product page
-      const product = await scrapeAndStoreProduct(searchPrompt);
-      setProducts(product);
+      await scrapeAndStoreProduct(searchPrompt);
+      alert(`Success to create/update product: ${searchPrompt}`)
+      getAllProducts().then((data: ProductType[] | undefined) => {
+        if (data !== undefined) {
+          setProducts(data);
+        }
+      });
       setSearchPrompt("");
     } catch (error) {
+      alert(`Failed to create/update product: ${searchPrompt} Try again!`)
       console.log(error);
     } finally {
       setIsLoading(false);
