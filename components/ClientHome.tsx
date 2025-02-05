@@ -13,19 +13,15 @@ const ClientHome = ({ initialProducts }: {initialProducts: ProductType[] | undef
   
   const setProducts = useProductStore((state) => state.setProducts);
   const products = useProductStore((state) => state.products);
-  const displayedProducts = products?.length > 0 ? products : initialProducts;
 
   useEffect(() => {
-    if(initialProducts !== undefined) {
-      setProducts(initialProducts);
-    } else {
-      getAllProducts().then((data: ProductType[] | undefined) => {
-        if (data !== undefined) {
-          setProducts(data);
-        }
-      });
-    }
-  }, [initialProducts, setProducts, products]);
+    console.log("component did mount")
+    getAllProducts().then((data: ProductType[] | undefined) => {
+      if (data !== undefined) {
+        setProducts(data);
+      }
+    });
+  }, [setProducts]);
 
   return (
     <>
@@ -48,9 +44,17 @@ const ClientHome = ({ initialProducts }: {initialProducts: ProductType[] | undef
       <section className="trending-section">
         <h2 className="section-text">ALL Products</h2>
         <div className="flex flex-wrap gap-x-8 gap-y-16">
-          {displayedProducts?.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
+          {
+            !products?.length && initialProducts?.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))
+          }
+
+          {
+            products?.length && products?.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))
+          }
         </div>
       </section>
     </>
