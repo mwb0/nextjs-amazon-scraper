@@ -34,17 +34,17 @@ export async function scrapeAmazonProduct(url: string): Promise<any> {
 
       const title = $('#productTitle').text().trim();
       const currentPrice = extractPrice(
-        $('.a-price.aok-align-center span.a-offscreen')
+        $('#corePrice_feature_div > div > div > span.a-price.aok-align-center > span.a-offscreen'),
       );
       const originalPrice = extractPrice(
-        $('.basisPrice .a-price.a-text-price span.a-offscreen')
+        $('#corePriceDisplay_desktop_feature_div > div.a-section.a-spacing-small.aok-align-center > span > span.aok-relative > span.a-size-small.a-color-secondary.aok-align-center.basisPrice > span > span.a-offscreen')
       );
       
       // for debugging
       console.log("title", title);
       console.log("originalPrice", originalPrice, "currentPrice", currentPrice);
 
-      if (currentPrice !== "" && originalPrice !== "") {
+      if (currentPrice !== "") {
         const outOfStock = $('#availability span').text().trim().toLowerCase() === 'currently unavailable';
         const images = $('#imgBlkFront').attr('data-a-dynamic-image') || 
                         $('#landingImage').attr('data-a-dynamic-image') || '{}';
@@ -81,7 +81,7 @@ export async function scrapeAmazonProduct(url: string): Promise<any> {
       }
     }
     attempts++;
-    await new Promise(resolve => setTimeout(resolve, 5000)); // Wait before retrying
+    await new Promise(resolve => setTimeout(resolve, 7000)); // Wait before retrying
   }
   
   return data;
