@@ -47,11 +47,13 @@ npm install
 Create a `.env` file in the root directory and add the following:
 ```env
 MONGODB_URI=your_mongodb_connection_string
+EMAIL_USER=your_gamil_address
 EMAIL_PASSWORD=your_email_password
 TWILIO_ACCOUNT_SID=your_twilio_sid
 TWILIO_AUTH_TOKEN=your_twilio_auth_token
 TWILIO_PHONE_NUMBER=your_twilio_phone_number
 ```
+You can use `.env.example` file
 
 ### 4️⃣ Start the Development Server
 ```bash
